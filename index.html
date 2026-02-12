@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ISEDP - Skill to Employment Platform</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.container{
+    width:500px;
+    background:#1e293b;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:0 0 25px rgba(0,0,0,0.6);
+    animation:fadeIn 0.6s ease-in-out;
+}
+
+h1,h2{
+    text-align:center;
+    margin-bottom:15px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:none;
+    border-radius:8px;
+    background:#334155;
+    color:white;
+}
+
+input:focus,select:focus,textarea:focus{
+    outline:none;
+    background:#475569;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    background:#3b82f6;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#2563eb;
+    transform:scale(1.05);
+}
+
+.hidden{
+    display:none;
+}
+
+.card{
+    background:#334155;
+    padding:15px;
+    border-radius:10px;
+    margin-top:15px;
+}
+
+.nav-btn{
+    background:#10b981;
+}
+
+.logout{
+    background:#ef4444;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+ul{
+    margin-top:10px;
+    padding-left:20px;
+}
+
+li{
+    margin:5px 0;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- LOGIN -->
+<div id="login">
+    <h1>ISEDP</h1>
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username">
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="login()">Login</button>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden">
+    <h2>Skill Assessment</h2>
+
+    <select id="education">
+        <option>Graduate</option>
+        <option>Post Graduate</option>
+        <option>Diploma</option>
+    </select>
+
+    <input type="text" id="skills" placeholder="Skills (Python, Excel)">
+    <input type="text" id="interest" placeholder="Interest Area (IT, Marketing)">
+
+    <button onclick="analyze()">Analyze Profile</button>
+
+    <div id="result"></div>
+
+    <button class="nav-btn" onclick="showEmployer()">Employer Section</button>
+    <button class="nav-btn" onclick="showTraining()">Training Programs</button>
+    <button class="nav-btn" onclick="showFeedback()">Feedback</button>
+    <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<!-- EMPLOYER -->
+<div id="employer" class="hidden">
+    <h2>Post Job</h2>
+    <input type="text" id="company" placeholder="Company Name">
+    <input type="text" id="jobTitle" placeholder="Job Title">
+    <input type="text" id="requiredSkills" placeholder="Required Skills">
+    <button onclick="postJob()">Submit Job</button>
+    <button onclick="back()">Back</button>
+</div>
+
+<!-- TRAINING -->
+<div id="training" class="hidden">
+    <h2>Training Programs</h2>
+    <div class="card">
+        <ul>
+            <li>Python Full Stack Development</li>
+            <li>Digital Marketing Certification</li>
+            <li>Advanced Excel & Data Analysis</li>
+            <li>Communication & Soft Skills</li>
+        </ul>
+    </div>
+    <button onclick="back()">Back</button>
+</div>
+
+<!-- FEEDBACK -->
+<div id="feedback" class="hidden">
+    <h2>Feedback</h2>
+    <textarea id="feedbackText" placeholder="Enter your feedback"></textarea>
+    <button onclick="submitFeedback()">Submit Feedback</button>
+    <button onclick="back()">Back</button>
+</div>
+
+</div>
+
+<script>
+
+// LOGIN
+function login(){
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if(user==="admin" && pass==="1234"){
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+    } else{
+        alert("Invalid Credentials");
+    }
+}
+
+// LOGOUT
+function logout(){
+    location.reload();
+}
+
+// ANALYSIS
+function analyze(){
+    let interest = document.getElementById("interest").value;
+
+    let resultHTML = `
+        <div class="card">
+            <h3>Career Guidance Result</h3>
+            <p><b>Suggested Career:</b> Entry Level ${interest}</p>
+            <p><b>Skill Gap:</b> Advanced Technical & Communication Skills</p>
+            <p><b>Recommended Training:</b> ${interest} Certification Program</p>
+        </div>
+    `;
+
+    document.getElementById("result").innerHTML = resultHTML;
+}
+
+// NAVIGATION
+function showEmployer(){ hideAll(); document.getElementById("employer").classList.remove("hidden"); }
+function showTraining(){ hideAll(); document.getElementById("training").classList.remove("hidden"); }
+function showFeedback(){ hideAll(); document.getElementById("feedback").classList.remove("hidden"); }
+function back(){ hideAll(); document.getElementById("dashboard").classList.remove("hidden"); }
+
+function hideAll(){
+    document.getElementById("dashboard").classList.add("hidden");
+    document.getElementById("employer").classList.add("hidden");
+    document.getElementById("training").classList.add("hidden");
+    document.getElementById("feedback").classList.add("hidden");
+}
+
+// EMPLOYER
+function postJob(){
+    alert("Job Posted Successfully");
+}
+
+// FEEDBACK
+function submitFeedback(){
+    alert("Feedback Submitted Successfully");
+}
+
+</script>
+
+</body>
+</html>
